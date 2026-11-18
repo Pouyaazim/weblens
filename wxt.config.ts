@@ -16,7 +16,6 @@ export default defineConfig({
     short_name: 'WebLens',
     description: 'افزونه متن‌باز و کاملاً رایگان برای تحلیل SEO فنی، کیفیت محتوا و آمادگی GEO صفحات وب',
     version: '0.1.0',
-    default_locale: 'fa',
     permissions: ['activeTab', 'sidePanel', 'storage', 'scripting'],
     host_permissions: ['https://openrouter.ai/*'],
     action: {

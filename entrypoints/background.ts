@@ -8,11 +8,10 @@ import { browser } from 'wxt/browser';
 import type { ExtensionMessage, ExtractResponse } from '../src/types/messages';
 import { PageDataSchema } from '../src/services/extraction/validator';
 export default defineBackground(() => {
-  browser.action.onClicked.addListener(async (tab) => {
-    if (tab.id !== undefined) {
-      await browser.sidePanel.open({ tabId: tab.id }).catch(() => undefined);
-    }
-  });
+  // با کلیک روی آیکون، Side Panel باز شود (قابل‌اعتمادتر از open دستی)
+  browser.sidePanel
+    .setPanelBehavior({ openPanelOnActionClick: true })
+    .catch(() => undefined);
 
   browser.runtime.onMessage.addListener((message: ExtensionMessage, sender, sendResponse) => {
     if (message.type === 'weblens:extract-page') {

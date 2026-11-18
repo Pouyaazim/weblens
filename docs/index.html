@@ -4,27 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WebLens — وب‌لنز | دانلود افزونه کروم</title>
-  <meta name="description" content="دانلود رایگان افزونه WebLens برای Chrome. فایل را از حالت فشرده خارج کنید، با Load unpacked نصب کنید و هر صفحه را برای SEO، محتوا و GEO تحلیل کنید." />
+  <meta name="description" content="دانلود رایگان افزونه WebLens برای Chrome. فایل را Extract کنید، با Load unpacked نصب کنید و هر صفحه را برای SEO، محتوا و GEO تحلیل کنید." />
   <meta property="og:title" content="WebLens — وب‌لنز" />
   <meta property="og:description" content="افزونه متن‌باز و رایگان کروم برای تحلیل SEO، کیفیت محتوا و آمادگی GEO" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="atmosphere" aria-hidden="true">
-    <div class="ring ring-a"></div>
-    <div class="ring ring-b"></div>
-    <div class="ring ring-c"></div>
-    <div class="glow"></div>
-  </div>
+  <div class="mesh" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand-mark" href="#top" aria-label="وب‌لنز">
-      <img src="assets/icon.svg" width="36" height="36" alt="" />
+    <a class="brand-mark" href="#top">
+      <img src="assets/icon.svg" width="28" height="28" alt="" />
       <span>وب‌لنز</span>
     </a>
     <nav class="top-links">
@@ -35,87 +30,112 @@
 
   <main id="top">
     <section class="hero">
-      <div class="hero-copy">
-        <p class="brand-hero">WebLens · وب‌لنز</p>
-        <h1>وب‌سایتت را بهتر ببین، هوشمندانه‌تر بهینه کن</h1>
-        <p class="lede">
-          افزونهٔ متن‌باز و کاملاً رایگان کروم برای تحلیل SEO فنی، کیفیت محتوا و آمادگی GEO —
-          بدون ثبت‌نام، بدون اشتراک.
-        </p>
-        <div class="cta-row">
-          <a class="btn-primary" href="downloads/weblens-chrome.zip" download="weblens-chrome.zip">
-            دانلود فایل زیپ افزونه
-          </a>
-          <a class="btn-ghost" href="#install">راهنمای نصب</a>
+      <div class="hero-plane" aria-hidden="true">
+        <div class="aperture">
+          <span class="ring r1"></span>
+          <span class="ring r2"></span>
+          <span class="ring r3"></span>
+          <span class="ring r4"></span>
+          <span class="iris"></span>
         </div>
-        <p class="meta-line">نسخه ۰٫۱٫۰ · Chrome Manifest V3 · حدود ۳۴۰ کیلوبایت</p>
+        <div class="panel-mock">
+          <div class="panel-bar">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <strong>WebLens</strong>
+          </div>
+          <div class="panel-score">
+            <em>۸۴</em>
+            <span>امتیاز کلی صفحه</span>
+          </div>
+          <div class="bars">
+            <i style="--w:92%"></i>
+            <i style="--w:78%"></i>
+            <i style="--w:86%"></i>
+            <i style="--w:71%"></i>
+          </div>
+          <div class="findings">
+            <span>عنوان بهینه است</span>
+            <span>۳ تصویر بدون alt</span>
+            <span>Schema ناقص</span>
+          </div>
+        </div>
       </div>
 
-      <div class="hero-visual" aria-hidden="true">
-        <div class="lens-stage"></div>
-        <div class="score-chip">امتیاز کلی · شواهد واقعی</div>
+      <div class="hero-copy">
+        <p class="brand-hero">وب‌لنز</p>
+        <p class="brand-en">WebLens</p>
+        <h1>وب‌سایتت را بهتر ببین، هوشمندانه‌تر بهینه کن</h1>
+        <p class="lede">افزونهٔ متن‌باز و رایگان کروم برای تحلیل SEO، محتوا و GEO — بدون ثبت‌نام.</p>
+        <div class="cta-row">
+          <a class="btn-primary" href="downloads/weblens-chrome.zip" download="weblens-chrome.zip">دانلود فایل زیپ</a>
+          <a class="btn-ghost" href="#install">چطور نصب کنم؟</a>
+        </div>
       </div>
     </section>
 
     <section class="install" id="install" aria-labelledby="install-title">
-      <h2 id="install-title">نصب در کروم، در چهار قدم</h2>
-      <p class="section-lede">فایل زیپ را دانلود کنید، از حالت فشرده خارج کنید، سپس پوشهٔ بازشده را در کروم بارگذاری کنید.</p>
+      <header class="section-head">
+        <h2 id="install-title">نصب در کروم</h2>
+        <p>چهار قدم؛ کمتر از یک دقیقه.</p>
+      </header>
 
       <ol class="steps">
         <li>
-          <span class="step-num" aria-hidden="true">۱</span>
+          <span class="step-num">۱</span>
           <div>
-            <h3>دانلود و استخراج</h3>
-            <p>روی دکمهٔ دانلود بزنید. فایل <code>weblens-chrome.zip</code> را Extract کنید تا یک پوشه با فایل‌های افزونه ساخته شود.</p>
+            <h3>دانلود و Extract</h3>
+            <p>فایل <code>weblens-chrome.zip</code> را بگیرید و از حالت فشرده خارج کنید.</p>
           </div>
         </li>
         <li>
-          <span class="step-num" aria-hidden="true">۲</span>
+          <span class="step-num">۲</span>
           <div>
-            <h3>باز کردن صفحهٔ افزونه‌ها</h3>
-            <p>در نوار آدرس کروم بنویسید <code>chrome://extensions</code> و Enter بزنید.</p>
+            <h3>صفحهٔ افزونه‌ها</h3>
+            <p>در کروم برو به <code>chrome://extensions</code>.</p>
           </div>
         </li>
         <li>
-          <span class="step-num" aria-hidden="true">۳</span>
+          <span class="step-num">۳</span>
           <div>
-            <h3>فعال‌کردن حالت توسعه‌دهنده</h3>
-            <p>کلید <strong>Developer mode</strong> را در گوشهٔ بالای صفحه روشن کنید.</p>
+            <h3>Developer mode</h3>
+            <p>حالت توسعه‌دهنده را در بالای صفحه روشن کن.</p>
           </div>
         </li>
         <li>
-          <span class="step-num" aria-hidden="true">۴</span>
+          <span class="step-num">۴</span>
           <div>
-            <h3>بارگذاری پوشه</h3>
-            <p>روی <strong>Load unpacked</strong> کلیک کنید و همان پوشه‌ای را که از زیپ خارج کردید انتخاب کنید — نه خودِ فایل زیپ.</p>
+            <h3>Load unpacked</h3>
+            <p>پوشه‌ای را انتخاب کن که داخلش فایل <code>manifest.json</code> باشد — نه خودِ فایل زیپ و نه پوشهٔ بالاتر.</p>
           </div>
         </li>
       </ol>
-
-      <aside class="tip">
-        بعد از نصب، آیکون وب‌لنز را از نوار ابزار کروم پین کنید. روی هر صفحه باز، Side Panel را باز کنید و تحلیل را شروع کنید.
-      </aside>
     </section>
 
     <section class="promise" aria-labelledby="promise-title">
-      <h2 id="promise-title">چه چیزی می‌گیرید</h2>
+      <header class="section-head">
+        <h2 id="promise-title">چه می‌بینی</h2>
+        <p>تحلیل روی دستگاه خودت؛ بدون ارسال خودکار صفحه به سرور.</p>
+      </header>
       <ul class="promise-list">
-        <li>تحلیل Technical SEO با شواهد واقعی روی همان صفحه</li>
-        <li>بررسی کیفیت محتوا و نگارش فارسی</li>
-        <li>امتیاز GEO برای آمادگی جست‌وجوی مبتنی بر هوش مصنوعی</li>
-        <li>هوش مصنوعی کاملاً اختیاری؛ تحلیل اصلی بدون API کار می‌کند</li>
+        <li><strong>SEO فنی</strong> عنوان، متا، هدینگ، تصویر، لینک، Schema</li>
+        <li><strong>محتوا</strong> خوانایی، ساختار، نگارش فارسی</li>
+        <li><strong>GEO</strong> آمادگی برای جست‌وجوی مبتنی بر هوش مصنوعی</li>
+        <li><strong>AI اختیاری</strong> تحلیل اصلی بدون API کار می‌کند</li>
       </ul>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>ساخته‌شده برای وب فارسی · لایسنس MIT</p>
+    <div>
+      <strong>وب‌لنز</strong>
+      <span>MIT · رایگان · متن‌باز</span>
+    </div>
     <p>
       <a href="https://github.com/Pouyaazim/weblens/blob/main/PRIVACY.md" rel="noopener noreferrer" target="_blank">حریم خصوصی</a>
-      ·
       <a href="https://github.com/Pouyaazim/weblens" rel="noopener noreferrer" target="_blank">کد منبع</a>
-      ·
-      <a href="downloads/weblens-0.1.0-chrome.zip" download>دانلود نسخه ۰٫۱٫۰</a>
+      <a href="downloads/weblens-0.1.0-chrome.zip" download>نسخه ۰٫۱٫۰</a>
     </p>
   </footer>
 </body>
