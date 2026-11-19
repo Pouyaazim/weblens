@@ -15,9 +15,10 @@ export default defineConfig({
     name: 'WebLens — وب‌لنز',
     short_name: 'WebLens',
     description: 'افزونه متن‌باز و کاملاً رایگان برای تحلیل SEO فنی، کیفیت محتوا و آمادگی GEO صفحات وب',
-    version: '0.1.0',
-    permissions: ['activeTab', 'sidePanel', 'storage', 'scripting'],
-    host_permissions: ['https://openrouter.ai/*'],
+    version: '0.1.1',
+    permissions: ['activeTab', 'sidePanel', 'storage', 'scripting', 'tabs'],
+    // دسترسی به همه صفحات لازم است؛ کلیک داخل Side Panel مجوز activeTab نمی‌دهد
+    host_permissions: ['http://*/*', 'https://*/*'],
     action: {
       default_title: 'WebLens — تحلیل صفحه',
     },

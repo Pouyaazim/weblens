@@ -19,7 +19,15 @@ export default defineBackground(() => {
         try {
           const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
           if (!tab?.id) {
-            sendResponse({ ok: false, error: 'تب فعالی یافت نشد.' } satisfies ExtractResponse);
+            sendResponse({ ok: false, error: 'تب فعالی یافت نشد. یک صفحه وب باز کنید و دوباره تلاش کنید.' } satisfies ExtractResponse);
+            return;
+          }
+          const url = tab.url ?? '';
+          if (!/^https?:\/\//i.test(url)) {
+            sendResponse({
+              ok: false,
+              error: 'این صفحه قابل تحلیل نیست. فقط صفحات http و https پشتیبانی می‌شوند (نه chrome:// یا فروشگاه افزونه‌ها).',
+            } satisfies ExtractResponse);
             return;
           }
           const results = await browser.scripting.executeScript({
@@ -116,7 +124,17 @@ export default defineBackground(() => {
           }
           sendResponse({ ok: true, data: parsed.data } satisfies ExtractResponse);
         } catch (e) {
-          sendResponse({ ok: false, error: e instanceof Error ? e.message : 'خطای نامشخص در استخراج' } satisfies ExtractResponse);
+          const raw = e instanceof Error ? e.message : String(e);
+          const lower = raw.toLowerCase();
+          let message = 'خطای نامشخص در استخراج صفحه.';
+          if (lower.includes('cannot access') || lower.includes('permission') || lower.includes('host')) {
+            message = 'دسترسی به این صفحه وجود ندارد. افزونه را از chrome://extensions یک‌بار Reload کنید و دوباره تحلیل را بزنید.';
+          } else if (lower.includes('no tab') || lower.includes('receiving end')) {
+            message = 'ارتباط با صفحه قطع شد. صفحه را رفرش کنید و دوباره تلاش کنید.';
+          } else if (raw.trim()) {
+            message = `استخراج ناموفق بود: ${raw.slice(0, 220)}`;
+          }
+          sendResponse({ ok: false, error: message } satisfies ExtractResponse);
         }
       })();
       return true; // پاسخ ناهمگام

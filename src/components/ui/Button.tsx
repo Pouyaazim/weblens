@@ -6,16 +6,16 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const VARIANTS = {
-  primary: 'bg-sky-600 text-white hover:bg-sky-700 disabled:bg-sky-300',
-  secondary: 'bg-slate-200 text-slate-800 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600 disabled:opacity-50',
-  danger: 'bg-red-600 text-white hover:bg-red-700 disabled:opacity-50',
-  ghost: 'hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50',
+  primary: 'bg-ink text-white hover:bg-teal-deep disabled:opacity-45',
+  secondary: 'bg-white text-ink-soft border border-line hover:border-teal hover:text-teal-deep dark:bg-slate-800 dark:text-slate-100 dark:border-slate-600 disabled:opacity-45',
+  danger: 'bg-red-600 text-white hover:bg-red-700 disabled:opacity-45',
+  ghost: 'text-ink-soft hover:bg-black/5 dark:hover:bg-white/5 disabled:opacity-45',
 };
 
 export function Button({ variant = 'primary', children, className = '', ...rest }: Props) {
   return (
     <button
-      className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed ${VARIANTS[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors disabled:cursor-not-allowed ${VARIANTS[variant]} ${className}`}
       {...rest}
     >
       {children}

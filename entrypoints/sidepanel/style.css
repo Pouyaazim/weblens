@@ -21,6 +21,14 @@
 
 @theme {
   --font-sans: 'Vazirmatn', 'Segoe UI', Tahoma, system-ui, sans-serif;
+  --color-ink: #07161c;
+  --color-ink-soft: #1c333c;
+  --color-muted: #4d6670;
+  --color-paper: #eef5f6;
+  --color-teal: #0b7c7c;
+  --color-teal-deep: #06585c;
+  --color-sea: #19a8a0;
+  --color-line: #d5e3e6;
 }
 
 html, body, #root {
@@ -31,19 +39,38 @@ body {
   font-family: var(--font-sans);
   direction: rtl;
   text-align: right;
-  background: #f8fafc;
-  color: #0f172a;
+  background:
+    radial-gradient(ellipse 80% 40% at 100% 0%, rgba(25, 168, 160, 0.12), transparent 55%),
+    linear-gradient(180deg, #f7fbfc 0%, var(--color-paper) 100%);
+  color: var(--color-ink);
 }
 
 .dark body {
-  background: #0b1120;
-  color: #e2e8f0;
+  background:
+    radial-gradient(ellipse 70% 40% at 100% 0%, rgba(25, 168, 160, 0.12), transparent 50%),
+    linear-gradient(180deg, #0a1418 0%, #0d1a1f 100%);
+  color: #e4eef0;
 }
 
 .ltr { direction: ltr; text-align: left; }
 .mono { font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace; }
 
-/* اسکرول‌بار ظریف */
-*::-webkit-scrollbar { width: 8px; height: 8px; }
-*::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-.dark *::-webkit-scrollbar-thumb { background: #334155; }
+*::-webkit-scrollbar { width: 7px; height: 7px; }
+*::-webkit-scrollbar-thumb {
+  background: #b7cdd2;
+  border-radius: 999px;
+}
+.dark *::-webkit-scrollbar-thumb { background: #2a454c; }
+
+@keyframes wl-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wl-rise {
+  animation: wl-rise 0.35s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-rise { animation: none; }
+}
