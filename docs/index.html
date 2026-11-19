@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WebLens — وب‌لنز | دانلود افزونه کروم</title>
-  <meta name="description" content="دانلود رایگان افزونه WebLens برای Chrome. فایل را Extract کنید، با Load unpacked نصب کنید و هر صفحه را برای SEO، محتوا و GEO تحلیل کنید." />
+  <meta name="description" content="دانلود رایگان افزونه WebLens برای Chrome. فایل زیپ را Extract کنید، با Load unpacked نصب کنید و هر صفحه را برای SEO، محتوا و GEO تحلیل کنید." />
   <meta property="og:title" content="WebLens — وب‌لنز" />
   <meta property="og:description" content="افزونه متن‌باز و رایگان کروم برای تحلیل SEO، کیفیت محتوا و آمادگی GEO" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -19,13 +19,14 @@
 
   <header class="topbar">
     <a class="brand-mark" href="#top">
-      <img src="assets/icon.svg" width="28" height="28" alt="" />
+      <img src="assets/icon.svg" width="30" height="30" alt="" />
       <span>وب‌لنز</span>
     </a>
-    <nav class="top-links">
+    <nav class="top-links" aria-label="منوی اصلی">
       <a href="#install">نصب</a>
+      <a href="#features">قابلیت‌ها</a>
       <a href="#maker">سازنده</a>
-      <a href="https://github.com/Pouyaazim/weblens" rel="noopener noreferrer" target="_blank">گیت‌هاب</a>
+      <a class="nav-github" href="https://github.com/Pouyaazim/weblens" rel="noopener noreferrer" target="_blank">گیت‌هاب</a>
     </nav>
   </header>
 
@@ -68,7 +69,7 @@
         <p class="brand-hero">وب‌لنز</p>
         <p class="brand-en">WebLens</p>
         <h1>وب‌سایتت را بهتر ببین، هوشمندانه‌تر بهینه کن</h1>
-        <p class="lede">افزونهٔ متن‌باز و رایگان کروم برای تحلیل SEO، محتوا و GEO — بدون ثبت‌نام.</p>
+        <p class="lede">افزونهٔ متن‌باز و رایگان کروم برای تحلیل SEO، محتوا و GEO — بدون ثبت‌نام و بدون اشتراک.</p>
         <div class="cta-row">
           <a class="btn-primary" href="downloads/weblens-chrome.zip" download="weblens-chrome.zip">دانلود فایل زیپ</a>
           <a class="btn-ghost" href="#install">چطور نصب کنم؟</a>
@@ -77,65 +78,75 @@
       </div>
     </section>
 
-    <section class="install" id="install" aria-labelledby="install-title">
+    <section class="install reveal" id="install" aria-labelledby="install-title">
       <header class="section-head">
         <h2 id="install-title">نصب در کروم</h2>
-        <p>چهار قدم؛ کمتر از یک دقیقه.</p>
+        <p>چهار قدم ساده؛ کمتر از یک دقیقه.</p>
       </header>
 
       <ol class="steps">
         <li>
-          <span class="step-num">۱</span>
+          <span class="step-num" aria-hidden="true">۱</span>
           <div>
             <h3>دانلود و Extract</h3>
-            <p>فایل <code>weblens-chrome.zip</code> را بگیرید و از حالت فشرده خارج کنید.</p>
+            <p>فایل <code>weblens-chrome.zip</code> را دانلود کنید و از حالت فشرده خارج کنید.</p>
           </div>
         </li>
         <li>
-          <span class="step-num">۲</span>
+          <span class="step-num" aria-hidden="true">۲</span>
           <div>
             <h3>صفحهٔ افزونه‌ها</h3>
-            <p>در کروم برو به <code>chrome://extensions</code>.</p>
+            <p>در کروم به آدرس <code>chrome://extensions</code> بروید.</p>
           </div>
         </li>
         <li>
-          <span class="step-num">۳</span>
+          <span class="step-num" aria-hidden="true">۳</span>
           <div>
             <h3>Developer mode</h3>
-            <p>حالت توسعه‌دهنده را در بالای صفحه روشن کن.</p>
+            <p>حالت توسعه‌دهنده را در بالای صفحه روشن کنید.</p>
           </div>
         </li>
         <li>
-          <span class="step-num">۴</span>
+          <span class="step-num" aria-hidden="true">۴</span>
           <div>
             <h3>Load unpacked</h3>
-            <p>پوشه‌ای را انتخاب کن که داخلش فایل <code>manifest.json</code> باشد — نه خودِ فایل زیپ و نه پوشهٔ بالاتر.</p>
+            <p>پوشه‌ای را انتخاب کنید که داخلش فایل <code>manifest.json</code> باشد — نه خودِ فایل زیپ.</p>
           </div>
         </li>
       </ol>
     </section>
 
-    <section class="promise" aria-labelledby="promise-title">
+    <section class="promise reveal" id="features" aria-labelledby="promise-title">
       <header class="section-head">
-        <h2 id="promise-title">چه می‌بینی</h2>
-        <p>تحلیل روی دستگاه خودت؛ بدون ارسال خودکار صفحه به سرور.</p>
+        <h2 id="promise-title">چه چیزی می‌بینی</h2>
+        <p>تحلیل روی دستگاه خودت انجام می‌شود؛ صفحه به‌صورت خودکار به سرور فرستاده نمی‌شود.</p>
       </header>
       <ul class="promise-list">
-        <li><strong>SEO فنی</strong> عنوان، متا، هدینگ، تصویر، لینک، Schema</li>
-        <li><strong>محتوا</strong> خوانایی، ساختار، نگارش فارسی</li>
-        <li><strong>GEO</strong> آمادگی برای جست‌وجوی مبتنی بر هوش مصنوعی</li>
-        <li><strong>AI اختیاری</strong> تحلیل اصلی بدون API کار می‌کند</li>
+        <li>
+          <strong>SEO فنی</strong>
+          <span>عنوان، متا، هدینگ، تصویر، لینک و Schema</span>
+        </li>
+        <li>
+          <strong>محتوا</strong>
+          <span>خوانایی، ساختار و نگارش فارسی</span>
+        </li>
+        <li>
+          <strong>GEO</strong>
+          <span>آمادگی برای جست‌وجوی مبتنی بر هوش مصنوعی</span>
+        </li>
+        <li>
+          <strong>AI اختیاری</strong>
+          <span>تحلیل اصلی بدون API کار می‌کند</span>
+        </li>
       </ul>
     </section>
 
-    <section class="maker" id="maker" aria-labelledby="maker-title">
+    <section class="maker reveal" id="maker" aria-labelledby="maker-title">
       <header class="section-head">
         <h2 id="maker-title">ساخته‌شده با دقت برای وب فارسی</h2>
-        <p>وب‌لنز را <strong>پویا عظیم‌زاده</strong> ساخته؛ توسعه‌دهنده‌ای که روی هوش مصنوعی، اتوماسیون و تجربهٔ دیجیتال کار می‌کند.</p>
+        <p>وب‌لنز را <strong>پویا عظیم‌زاده</strong> ساخته است؛ توسعه‌دهنده‌ای که روی هوش مصنوعی، اتوماسیون و تجربهٔ دیجیتال کار می‌کند.</p>
       </header>
-      <p class="maker-lede">
-        اگر خواستی مسیر کار، پروژه‌ها یا همکاری را ببینی، از گیت‌هاب و لینکدین سر بزن.
-      </p>
+      <p class="maker-lede">برای دیدن پروژه‌ها و مسیر حرفه‌ای، گیت‌هاب و لینکدین را دنبال کنید.</p>
       <div class="maker-links">
         <a class="maker-link" href="https://github.com/Pouyaazim" rel="noopener noreferrer" target="_blank">
           <span class="maker-link-label">GitHub</span>
@@ -158,8 +169,28 @@
       <a href="https://github.com/Pouyaazim" rel="noopener noreferrer" target="_blank">گیت‌هاب</a>
       <a href="https://www.linkedin.com/in/pouya-ai/" rel="noopener noreferrer" target="_blank">لینکدین</a>
       <a href="https://github.com/Pouyaazim/weblens/blob/main/PRIVACY.md" rel="noopener noreferrer" target="_blank">حریم خصوصی</a>
-      <a href="downloads/weblens-0.1.1-chrome.zip" download>نسخه ۰٫۱٫۱</a>
+      <a href="downloads/weblens-0.1.1-chrome.zip" download>دانلود ۰٫۱٫۱</a>
     </p>
   </footer>
+
+  <script>
+    (() => {
+      const nodes = document.querySelectorAll('.reveal');
+      if (!nodes.length) return;
+      if (!('IntersectionObserver' in window)) {
+        nodes.forEach((el) => el.classList.add('is-visible'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+      nodes.forEach((el) => io.observe(el));
+    })();
+  </script>
 </body>
 </html>
