@@ -1,6 +1,6 @@
 {
   "name": "weblens",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "description": "افزونه متن‌باز و کاملاً رایگان کروم برای تحلیل SEO، GEO، کیفیت محتوا و بهینه‌سازی هوشمند صفحات وب",
@@ -10,7 +10,7 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
-    "zip": "wxt zip",
+    "zip": "wxt build && node scripts/package-chrome-zip.mjs",
     "compile": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",

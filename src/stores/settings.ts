@@ -25,7 +25,18 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     await saveSettings(next);
   },
   updateAi: async (patch) => {
-    const next = { ...get().settings, ai: { ...get().settings.ai, ...patch } };
+    const cleaned = { ...patch };
+    if (typeof cleaned.apiKey === 'string') {
+      cleaned.apiKey = cleaned.apiKey
+        .replace(/^\uFEFF/, '')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .trim()
+        .replace(/^["']+|["']+$/g, '')
+        .replace(/\s+/g, '');
+    }
+    if (typeof cleaned.model === 'string') cleaned.model = cleaned.model.trim();
+    if (typeof cleaned.fallbackModel === 'string') cleaned.fallbackModel = cleaned.fallbackModel.trim();
+    const next = { ...get().settings, ai: { ...get().settings.ai, ...cleaned } };
     set({ settings: next });
     await saveSettings(next);
   },

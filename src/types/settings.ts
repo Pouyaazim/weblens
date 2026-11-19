@@ -16,8 +16,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
   ai: {
     enabled: false,
     apiKey: '',
-    model: 'google/gemini-2.0-flash-exp:free',
-    fallbackModel: '',
+    model: 'openrouter/auto',
+    fallbackModel: 'google/gemini-2.0-flash-001',
     language: 'fa',
   },
 };

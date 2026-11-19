@@ -14,10 +14,19 @@ export async function loadSettings(): Promise<UserSettings> {
     const result = await browser.storage.local.get(STORAGE_KEY);
     const stored = result[STORAGE_KEY] as Partial<UserSettings> | undefined;
     if (!stored) return structuredClone(DEFAULT_SETTINGS);
+    const ai = { ...DEFAULT_SETTINGS.ai, ...(stored.ai ?? {}) };
+    if (typeof ai.apiKey === 'string') {
+      ai.apiKey = ai.apiKey
+        .replace(/^\uFEFF/, '')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .trim()
+        .replace(/^["']+|["']+$/g, '')
+        .replace(/\s+/g, '');
+    }
     return {
       ...structuredClone(DEFAULT_SETTINGS),
       ...stored,
-      ai: { ...DEFAULT_SETTINGS.ai, ...(stored.ai ?? {}) },
+      ai,
     };
   } catch {
     return structuredClone(DEFAULT_SETTINGS);

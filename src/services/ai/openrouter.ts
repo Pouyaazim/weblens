@@ -18,35 +18,110 @@ export interface ChatCompletionResult {
   model: string;
 }
 
+/** پاک‌سازی کلید کپی‌شده از داشبورد (فاصله، کوتیشن، کاراکترهای نامرئی). */
+export function normalizeApiKey(raw: string): string {
+  return raw
+    .replace(/^\uFEFF/, '')
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .trim()
+    .replace(/^["']+|["']+$/g, '')
+    .replace(/\s+/g, '');
+}
+
+function buildHeaders(apiKey: string): HeadersInit {
+  return {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${apiKey}`,
+    'HTTP-Referer': 'https://pouyaazim.github.io/weblens/',
+    'X-Title': 'WebLens',
+  };
+}
+
+async function readErrorMessage(res: Response): Promise<string> {
+  try {
+    const data = (await res.json()) as { error?: { message?: string } | string; message?: string };
+    if (typeof data.error === 'string') return data.error;
+    if (data.error && typeof data.error === 'object' && data.error.message) return data.error.message;
+    if (typeof data.message === 'string') return data.message;
+  } catch {
+    /* ignore */
+  }
+  return '';
+}
+
+function mapHttpError(status: number, detail: string, model: string): AiError {
+  const lower = detail.toLowerCase();
+  if (status === 401) {
+    return new AiError(
+      'invalid-key',
+      detail
+        ? `کلید API پذیرفته نشد: ${detail.slice(0, 180)}`
+        : 'کلید API معتبر نیست. کلید OpenRouter باید با sk-or- شروع شود.',
+    );
+  }
+  if (status === 402) {
+    return new AiError('unknown', 'اعتبار OpenRouter کافی نیست. در حساب OpenRouter اعتبار اضافه کنید.');
+  }
+  if (status === 403) {
+    return new AiError(
+      'unknown',
+      detail
+        ? `درخواست رد شد (۴۰۳): ${detail.slice(0, 180)}`
+        : 'دسترسی به این مدل یا درخواست مسدود شده است.',
+    );
+  }
+  if (status === 429) {
+    return new AiError('rate-limit', 'محدودیت نرخ OpenRouter فعال است. کمی صبر کنید و دوباره تلاش کنید.');
+  }
+  if (status === 404 || lower.includes('not found') || lower.includes('no endpoints')) {
+    return new AiError('model-not-found', `مدل «${model}» یافت نشد یا در دسترس نیست. مدل دیگری انتخاب کنید.`);
+  }
+  return new AiError('unknown', `خطای OpenRouter (${status})${detail ? `: ${detail.slice(0, 180)}` : ''}`);
+}
+
 export async function chatCompletion(
   apiKey: string,
   model: string,
   messages: ChatMessage[],
   signal?: AbortSignal,
+  options?: { jsonMode?: boolean },
 ): Promise<ChatCompletionResult> {
-  if (!apiKey) throw new AiError('missing-key', 'کلید API تنظیم نشده است. در بخش تنظیمات، کلید OpenRouter خود را وارد کنید.');
+  const key = normalizeApiKey(apiKey);
+  if (!key) {
+    throw new AiError('missing-key', 'کلید API تنظیم نشده است. در بخش تنظیمات، کلید OpenRouter خود را وارد کنید.');
+  }
+  if (!key.startsWith('sk-or-')) {
+    throw new AiError(
+      'invalid-key',
+      'این کلید مربوط به OpenRouter نیست. کلید باید با sk-or- شروع شود (نه کلید OpenAI یا Anthropic).',
+    );
+  }
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
   const onAbort = () => controller.abort();
   signal?.addEventListener('abort', onAbort);
+
+  const body: Record<string, unknown> = {
+    model,
+    messages,
+    temperature: 0.4,
+  };
+  // jsonMode فقط وقتی صریحاً لازم باشد؛ خیلی از مدل‌های رایگان آن را پشتیبانی نمی‌کنند
+  if (options?.jsonMode) {
+    body.response_format = { type: 'json_object' };
+  }
+
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-        'HTTP-Referer': 'https://github.com/Pouyaazim/weblens',
-        'X-Title': 'WebLens',
-      },
-      body: JSON.stringify({ model, messages, temperature: 0.4, response_format: { type: 'json_object' } }),
+      headers: buildHeaders(key),
+      body: JSON.stringify(body),
       signal: controller.signal,
     });
     if (!res.ok) {
-      const body = await res.text().catch(() => '');
-      if (res.status === 401 || res.status === 403) throw new AiError('invalid-key', 'کلید API معتبر نیست. کلید را بررسی کنید.');
-      if (res.status === 429) throw new AiError('rate-limit', 'محدودیت نرخ (Rate Limit) OpenRouter فعال شده است. کمی صبر کنید و دوباره تلاش کنید.');
-      if (res.status === 404) throw new AiError('model-not-found', `مدل «${model}» یافت نشد. شناسه مدل را بررسی کنید.`);
-      throw new AiError('unknown', `خطای OpenRouter (${res.status}): ${body.slice(0, 200)}`);
+      const detail = await readErrorMessage(res);
+      throw mapHttpError(res.status, detail, model);
     }
     const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }>; model?: string };
     const content = json.choices?.[0]?.message?.content;
@@ -64,11 +139,25 @@ export async function chatCompletion(
   }
 }
 
-/** آزمایش اتصال به OpenRouter با یک درخواست سبک. */
+/** آزمایش اتصال به OpenRouter با یک درخواست سبک (بدون اجبار JSON). */
 export async function testConnection(apiKey: string, model: string): Promise<{ ok: boolean; message: string }> {
   try {
-    await chatCompletion(apiKey, model, [{ role: 'user', content: 'Reply with the single word: OK' }]);
-    return { ok: true, message: 'اتصال موفق بود.' };
+    const key = normalizeApiKey(apiKey);
+    if (!key) return { ok: false, message: 'کلید API خالی است.' };
+    if (!key.startsWith('sk-or-')) {
+      return { ok: false, message: 'کلید باید OpenRouter باشد و با sk-or- شروع شود.' };
+    }
+    const result = await chatCompletion(
+      key,
+      model,
+      [
+        { role: 'system', content: 'Reply with exactly: OK' },
+        { role: 'user', content: 'ping' },
+      ],
+      undefined,
+      { jsonMode: false },
+    );
+    return { ok: true, message: `اتصال موفق بود (${result.model}).` };
   } catch (e) {
     return { ok: false, message: e instanceof AiError ? e.message : 'خطای نامشخص' };
   }

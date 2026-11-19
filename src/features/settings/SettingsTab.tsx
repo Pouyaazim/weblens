@@ -96,7 +96,10 @@ export function SettingsTab() {
             onChange={(e) => void updateAi({ apiKey: e.target.value })}
             placeholder="sk-or-v1-..."
             dir="ltr"
+            autoComplete="off"
+            spellCheck={false}
           />
+          <span className="mt-1 block text-xs text-slate-500">فقط کلید OpenRouter (شروع با sk-or-). فاصلهٔ اول و آخر خودکار حذف می‌شود.</span>
         </label>
         <label className="mt-3 block text-sm">
           مدل اصلی
@@ -107,6 +110,7 @@ export function SettingsTab() {
             dir="ltr"
           />
           {!isValidModelId(settings.ai.model) && <span className="text-xs text-red-600">شناسه مدل معتبر نیست.</span>}
+          <span className="mt-1 block text-xs text-slate-500">پیشنهاد پیش‌فرض: openrouter/auto</span>
         </label>
         <label className="mt-3 block text-sm">
           مدل جایگزین (اختیاری)
